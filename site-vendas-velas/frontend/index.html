@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velas Artesanais - Loja Online</title>
+    <link rel="stylesheet" href="./style/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <nav class="navigation-bar">
+            <!-- Barra de Pesquisa (lado esquerdo) -->
+            <div class="search-container">
+                <input 
+                    type="search" 
+                    class="search-input" 
+                    placeholder="Buscar velas..."
+                    aria-label="Buscar produtos"
+                >
+                <button class="search-button" aria-label="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- Logo (lado direito) -->
+            <div class="logo-container">
+                <h1 class="site-logo">
+                    <i class="fas fa-fire"></i> Velas Artesanais
+                </h1>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        <!-- Seção de Produtos -->
+        <section class="products-section">
+            <h2 class="section-title">Nossos Produtos</h2>
+            
+            <div class="products-grid">
+                <!-- Card de Produto 1 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Lavanda" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Lavanda</h3>
+                        
+                        <p class="product-price">R$ 39,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card de Produto 2 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Baunilha" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Baunilha</h3>
+                        
+                        <p class="product-price">R$ 35,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card de Produto 3 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Rosa" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Rosa</h3>
+                        
+                        <p class="product-price">R$ 42,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card de Produto 4 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Canela" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Canela</h3>
+                        
+                        <p class="product-price">R$ 38,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card de Produto 5 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Jasmim" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Jasmim</h3>
+                        
+                        <p class="product-price">R$ 44,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card de Produto 6 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img 
+                            src="./imgs/vela-exemplo.webp" 
+                            alt="Vela Aromática de Framboesa" 
+                            class="product-image"
+                        >
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Vela Aromática - Framboesa</h3>
+                        
+                        <p class="product-price">R$ 40,90</p>
+                        
+                        <div class="quantity-selector">
+                            <button class="quantity-button quantity-decrease" aria-label="Diminuir quantidade">−</button>
+                            <input 
+                                type="number" 
+                                class="quantity-display" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantidade"
+                            >
+                            <button class="quantity-button quantity-increase" aria-label="Aumentar quantidade">+</button>
+                        </div>
+                        
+                        <button class="add-to-cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <nav class="social-links">
+            <a 
+                href="https://www.instagram.com" 
+                class="social-link social-instagram" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Nos siga no Instagram"
+            >
+                <i class="fab fa-instagram"></i>
+                Instagram
+            </a>
+            
+            <a 
+                href="https://wa.me/5511999999999" 
+                class="social-link social-whatsapp" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Fale conosco no WhatsApp"
+            >
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+        </nav>
+        
+        <p class="footer-copyright">
+            &copy; 2026 Velas Artesanais. Todos os direitos reservados.
+        </p>
+    </footer>
+
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
