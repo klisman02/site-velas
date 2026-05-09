@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Velas Artesanais - Loja Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -11,24 +14,24 @@
     <!-- Header -->
     <header class="site-header">
         <nav class="navigation-bar">
-            <!-- Barra de Pesquisa (lado esquerdo) -->
-            <div class="search-container">
-                <input 
-                    type="search" 
-                    class="search-input" 
-                    placeholder="Buscar velas..."
-                    aria-label="Buscar produtos"
-                >
-                <button class="search-button" aria-label="Pesquisar">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-
-            <!-- Logo (lado direito) -->
+            <!-- Logo (lado esquerdo) -->
             <div class="logo-container">
                 <h1 class="site-logo">
                     <i class="fas fa-fire"></i> Velas Artesanais
                 </h1>
+            </div>
+
+            <!-- Navegação e carrinho (lado direito) -->
+            <div class="nav-actions">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active">HOME</a></li>
+                    <li><a href="sobre.html" class="nav-link">SOBRE</a></li>
+                    <li><a href="contato.html" class="nav-link">CONTATO</a></li>
+                </ul>
+                <a href="#carrinho" class="cart-link" aria-label="Ver carrinho">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge">0</span>
+                </a>
             </div>
         </nav>
     </header>
@@ -41,7 +44,7 @@
             
             <div class="products-grid">
                 <!-- Card de Produto 1 -->
-                <article class="product-card">
+                <article class="product-card" data-product-id="vela-lavanda">
                     <div class="product-image-container">
                         <img 
                             src="./imgs/vela-exemplo.webp" 
@@ -76,7 +79,7 @@
                 </article>
 
                 <!-- Card de Produto 2 -->
-                <article class="product-card">
+                <article class="product-card" data-product-id="vela-baunilha">
                     <div class="product-image-container">
                         <img 
                             src="./imgs/vela-exemplo.webp" 
@@ -111,7 +114,7 @@
                 </article>
 
                 <!-- Card de Produto 3 -->
-                <article class="product-card">
+                <article class="product-card" data-product-id="vela-rosa">
                     <div class="product-image-container">
                         <img 
                             src="./imgs/vela-exemplo.webp" 
@@ -146,7 +149,7 @@
                 </article>
 
                 <!-- Card de Produto 4 -->
-                <article class="product-card">
+                <article class="product-card" data-product-id="vela-canela">
                     <div class="product-image-container">
                         <img 
                             src="./imgs/vela-exemplo.webp" 
@@ -181,7 +184,7 @@
                 </article>
 
                 <!-- Card de Produto 5 -->
-                <article class="product-card">
+                <article class="product-card" data-product-id="vela-jasmim">
                     <div class="product-image-container">
                         <img 
                             src="./imgs/vela-exemplo.webp" 
@@ -284,6 +287,31 @@
         </p>
     </footer>
 
+    <div class="cart-backdrop hidden" id="cart-backdrop"></div>
+    <aside class="cart-panel hidden" id="cart-panel" aria-hidden="true">
+        <div class="cart-panel-header">
+            <div>
+                <h2>Carrinho</h2>
+                <p class="cart-panel-subtitle">Itens adicionados e total do pedido</p>
+            </div>
+            <button class="cart-close" aria-label="Fechar carrinho">×</button>
+        </div>
+
+        <div class="cart-panel-content">
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-empty-message">Seu carrinho está vazio.</div>
+        </div>
+
+        <div class="cart-panel-footer">
+            <div class="cart-summary">
+                <span>Total</span>
+                <strong class="cart-total" id="cart-total">R$ 0,00</strong>
+            </div>
+            <button class="checkout-button" id="checkout-button" disabled>Finalizar compra</button>
+        </div>
+    </aside>
+
+    <script src="./scripts/cart.js"></script>
     <script src="./scripts/script.js"></script>
 </body>
 </html>
