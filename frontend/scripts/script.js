@@ -9,8 +9,7 @@ const cartItemsContainer = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
 const cartEmptyMessage = document.querySelector('.cart-empty-message');
 const checkoutButton = document.getElementById('checkout-button');
-const searchButton = document.querySelector('.search-button');
-const searchInput = document.querySelector('.search-input');
+let cartCloseTimer;
 
 function updateCartBadge() {
     if (!cart || !cartBadge) return;
@@ -21,10 +20,15 @@ function updateCartBadge() {
 
 function openCartPanel() {
     if (!cartPanel || !cartBackdrop) return;
-    cartPanel.classList.add('open');
+    clearTimeout(cartCloseTimer);
     cartPanel.classList.remove('hidden');
-    cartBackdrop.classList.add('visible');
+    cartBackdrop.classList.remove('hidden');
     cartPanel.setAttribute('aria-hidden', 'false');
+
+    requestAnimationFrame(() => {
+        cartPanel.classList.add('open');
+        cartBackdrop.classList.add('visible');
+    });
 }
 
 function closeCartPanel() {
@@ -32,8 +36,9 @@ function closeCartPanel() {
     cartPanel.classList.remove('open');
     cartBackdrop.classList.remove('visible');
     cartPanel.setAttribute('aria-hidden', 'true');
-    setTimeout(() => {
+    cartCloseTimer = setTimeout(() => {
         cartPanel.classList.add('hidden');
+        cartBackdrop.classList.add('hidden');
     }, 250);
 }
 
@@ -43,7 +48,7 @@ function createCartItemElement(item) {
 
     cartItem.innerHTML = `
         <div class="cart-item-details">
-            <strong>${item.name}</strong>
+            <strong>${escapeHtml(item.name)}</strong>
             <span>Preço unitário: ${formatPrice(item.price)}</span>
             <span>Subtotal: ${formatPrice(item.price * item.quantity)}</span>
         </div>
@@ -53,7 +58,7 @@ function createCartItemElement(item) {
                 <span>${item.quantity}</span>
                 <button type="button" class="cart-increase" aria-label="Aumentar quantidade">+</button>
             </div>
-            <button type="button" class="cart-remove" data-item-id="${item.id}">Remover</button>
+            <button type="button" class="cart-remove">Remover</button>
         </div>
     `;
 
@@ -118,7 +123,8 @@ function getProductData(card) {
     const productTitle = card.querySelector('.product-title').textContent.trim();
     const productPriceText = card.querySelector('.product-price').textContent.trim();
     const quantityDisplay = card.querySelector('.quantity-display');
-    const quantity = parseInt(quantityDisplay.value, 10) || 1;
+    const quantity = clampQuantity(quantityDisplay.value);
+    quantityDisplay.value = quantity;
 
     return {
         id: productId,
@@ -128,6 +134,22 @@ function getProductData(card) {
     };
 }
 
+function clampQuantity(value) {
+    const quantity = parseInt(value, 10);
+    if (Number.isNaN(quantity) || quantity < 1) return 1;
+    if (quantity > 99) return 99;
+    return quantity;
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 function animateQuantityChange(element) {
     element.classList.add('updated');
     setTimeout(() => {
@@ -135,18 +157,28 @@ function animateQuantityChange(element) {
     }, 200);
 }
 
-productCards.forEach((card, index) => {
-    console.log(`Processando card ${index}:`, card);
+function showAddedNotification(button, quantity) {
+    const originalContent = button.innerHTML;
+    button.classList.add('added');
+    button.innerHTML = `<i class="fas fa-check"></i> ${quantity} item${quantity > 1 ? 's' : ''} adicionado${quantity > 1 ? 's' : ''}`;
+
+    setTimeout(() => {
+        button.classList.remove('added');
+        button.innerHTML = originalContent;
+    }, 1200);
+}
+
+productCards.forEach((card) => {
     const quantityDisplay = card.querySelector('.quantity-display');
     const decreaseButton = card.querySelector('.quantity-decrease');
     const increaseButton = card.querySelector('.quantity-increase');
     const addToCartButton = card.querySelector('.add-to-cart-button');
 
-    console.log('Elementos encontrados:', { quantityDisplay, decreaseButton, increaseButton, addToCartButton });
+    if (!quantityDisplay) return;
 
     if (decreaseButton) {
         decreaseButton.addEventListener('click', () => {
-            let currentValue = parseInt(quantityDisplay.value, 10);
+            let currentValue = clampQuantity(quantityDisplay.value);
             if (currentValue > 1) {
                 quantityDisplay.value = currentValue - 1;
             }
@@ -155,7 +187,7 @@ productCards.forEach((card, index) => {
 
     if (increaseButton) {
         increaseButton.addEventListener('click', () => {
-            let currentValue = parseInt(quantityDisplay.value, 10);
+            let currentValue = clampQuantity(quantityDisplay.value);
             if (currentValue < 99) {
                 quantityDisplay.value = currentValue + 1;
             }
@@ -164,24 +196,17 @@ productCards.forEach((card, index) => {
 
     if (quantityDisplay) {
         quantityDisplay.addEventListener('change', () => {
-            let value = parseInt(quantityDisplay.value, 10);
-            if (isNaN(value) || value < 1) {
-                quantityDisplay.value = 1;
-            } else if (value > 99) {
-                quantityDisplay.value = 99;
-            }
+            quantityDisplay.value = clampQuantity(quantityDisplay.value);
         });
     }
 
     if (addToCartButton) {
         addToCartButton.addEventListener('click', () => {
-            console.log('Botão adicionar clicado');
             if (!cart) {
                 console.error('Cart não disponível');
                 return;
             }
             const product = getProductData(card);
-            console.log('Produto:', product);
             cart.addItem(product);
             refreshCartUI();
             showAddedNotification(addToCartButton, product.quantity);
@@ -213,33 +238,10 @@ if (cartBackdrop) {
     cartBackdrop.addEventListener('click', closeCartPanel);
 }
 
-// Evento de busca (placeholder para funcionalidade futura)
-
-if (searchButton && searchInput) {
-    searchButton.addEventListener('click', () => {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm) {
-            console.log('Buscando por:', searchTerm);
-            // Aqui você adicionaria a lógica de busca
-            alert(`Buscando por: "${searchTerm}"`);
-        }
-    });
-
-    // Permite buscar ao pressionar Enter
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            searchButton.click();
-        }
-    });
-}
-
 if (checkoutButton) {
     checkoutButton.addEventListener('click', () => {
         if (!cart || cart.getTotalQuantity() === 0) return;
-        alert('Seu pedido foi processado com sucesso! Total: ' + formatPrice(cart.getTotalPrice()));
-        cart.clear();
-        refreshCartUI();
-        closeCartPanel();
+        window.location.href = 'checkout.html';
     });
 }
 
@@ -258,7 +260,3 @@ function formatPrice(value) {
         currency: 'BRL',
     });
 }
-
-console.log('Script carregado. Cart disponível:', typeof Cart !== 'undefined');
-console.log('Cart instance:', cart);
-console.log('Product cards encontrados:', productCards.length);
